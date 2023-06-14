@@ -1,0 +1,301 @@
+config:
+  # between 0 and 1
+  probability_flag_trick: 0.2
+section:
+ - name: annonannot
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzw5ohP5aot8eithohg0ueNae2es8ai
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Pod
+     - type: k8s_field
+       field: metadata.annotations.can-i
+       operation: equal
+       expect: yes-you-can
+ - name: vinsec-thisiswinedryinromania
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzwem8ahzae3Apoyie2aexaiZohK0en
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Pod
+     - type: k8s_field
+       field: metadata.name
+       operation: equal
+       expect: nginx
+     - type: k8s_field
+       field: metadata.annotations.can-i
+       operation: equal
+       expect: https://t.ly/7nhi
+     - type: k8s_field
+       field: spec.containers.~0.name
+       operation: equal
+       expect: nginx-web
+     - type: k8s_field
+       field: spec.restartPolicy
+       operation: equal
+       expect: OnFailure
+     - type: k8s_field
+       field: spec.containers.~0.image
+       operation: equal
+       expect: nginx:1.23.4
+ - name: pullmysecretimagination
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzwhC6weeN9aeJuf8ay1Aeph2coopab
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Pod
+     - type: k8s_field
+       field: spec.imagePullSecrets.~0.name
+       operation: equal
+       expect: ship-harbork8s-cred
+     - type: k8s_field
+       field: spec.containers.~0.image
+       operation: equal
+       expect: harbor.sampledomain.com/demo/privateimage:notdefined
+ - name: healthchecksforhealthysleep
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzw7suChahHo5uchath4ooxoh8Toh4u
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Deployment
+     - type: k8s_field
+       field: metadata.name
+       operation: equal
+       expect: webserver-sample
+     - type: k8s_field
+       field: spec.replicas
+       operation: equal
+       expect: 3
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.image
+       operation: equal
+       expect: nginx:1.23.4
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.ports.~0.containerPort
+       operation: equal
+       expect: 80
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.livenessProbe.httpGet.path
+       operation: equal
+       expect: /live
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.livenessProbe.httpGet.port
+       operation: equal
+       expect: 80
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.livenessProbe.initialDelaySeconds
+       operation: equal
+       expect: 5
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.livenessProbe.periodSeconds
+       operation: equal
+       expect: 60
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.readinessProbe.httpGet.path
+       operation: equal
+       expect: /ready
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.readinessProbe.httpGet.port
+       operation: equal
+       expect: 80
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.readinessProbe.initialDelaySeconds
+       operation: equal
+       expect: 5
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.readinessProbe.periodSeconds
+       operation: equal
+       expect: 10
+ - name: resourceseverywhere
+   type: regular_expression
+   flag:
+     good: FLAG-xyzwozahxoa4aheeng5eeTieC3sae3Ie
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: regex
+       pattern: '^kubectl\s+api-resources$'
+ - name: quotamealimit
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-seiciecae2ug9eeb1xitoeY9Ohp7fail
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Pod
+     - type: k8s_field
+       field: metadata.name
+       operation: equal
+       expect: frontend
+     - type: k8s_field
+       field: spec.containers.~0.name
+       operation: equal
+       expect: app
+     - type: k8s_field
+       field: spec.containers.~0.image
+       operation: equal
+       expect: harbor.sampledomain.com/demo/app:v4
+     - type: k8s_field
+       field: spec.containers.~0.resources.requests.memory
+       operation: equal
+       expect: 128Mi
+     - type: k8s_field
+       field: spec.containers.~0.resources.requests.cpu
+       operation: equal
+       expect: 250m
+     - type: k8s_field
+       field: spec.containers.~0.resources.limits.memory
+       operation: equal
+       expect: 128Mi
+     - type: k8s_field
+       field: spec.containers.~0.resources.limits.cpu
+       operation: equal
+       expect: 500m
+     - type: k8s_field
+       field: spec.containers.~1.name
+       operation: equal
+       expect: log-aggregator
+     - type: k8s_field
+       field: spec.containers.~1.image
+       operation: equal
+       expect: harbor.sampledomain.com/demo/log-aggregator:v6
+     - type: k8s_field
+       field: spec.containers.~1.resources.requests.memory
+       operation: equal
+       expect: 32Mi
+     - type: k8s_field
+       field: spec.containers.~1.resources.requests.cpu
+       operation: equal
+       expect: 500m
+     - type: k8s_field
+       field: spec.containers.~1.resources.limits.memory
+       operation: equal
+       expect: 32Mi
+     - type: k8s_field
+       field: spec.containers.~1.resources.limits.cpu
+       operation: equal
+       expect: 800m
+ - name: securethecontext
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzwsohYai0Uwooca2eequ6UiPhoo6ei
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Pod
+     - type: k8s_field
+       field: metadata.name
+       operation: equal
+       expect: red-pod
+     - type: k8s_field
+       field: spec.hostNetwork
+       operation: equal
+       expect: true
+     - type: k8s_field
+       field: spec.hostIPC
+       operation: equal
+       expect: true
+     - type: k8s_field
+       field: spec.hostPID
+       operation: equal
+       expect: true
+     - type: k8s_field
+       field: spec.securityContext.runAsUser
+       operation: equal
+       expect: 0
+     - type: k8s_field
+       field: spec.securityContext.runAsGroup
+       operation: equal
+       expect: 0
+     - type: k8s_field
+       field: spec.securityContext.runAsNonRoot
+       operation: equal
+       expect: false
+     - type: k8s_field
+       field: spec.containers.~0.name
+       operation: equal
+       expect: this-is-bad
+     - type: k8s_field
+       field: spec.containers.~0.image
+       operation: equal
+       expect: harbor.sampledomain.com/demo/nasty-image:v1337
+     - type: k8s_field
+       field: spec.containers.~0.securityContext.runAsUser
+       operation: equal
+       expect: 0
+     - type: k8s_field
+       field: spec.containers.~0.securityContext.privileged
+       operation: equal
+       expect: true
+     - type: k8s_field
+       field: spec.containers.~0.securityContext.readOnlyRootFilesystem
+       operation: equal
+       expect: false
+     - type: k8s_field
+       field: spec.containers.~0.securityContext.allowPrivilegeEscalation
+       operation: equal
+       expect: true
+ - name: operationops
+   type: k8s_yaml_check_fields
+   flag:
+     good: FLAG-xyzwozahxoa4aheeng5eeTieC3sae3Ie
+     trick: FLAG-https://t.ly/Tex82
+     info: FLAG-you-getting-closer-try-again
+   validators:
+     - type: k8s
+     - type: k8s_field
+       field: kind
+       operation: equal
+       expect: Deployment
+     - type: k8s_field
+       field: metadata.name
+       operation: equal
+       expect: ops-what-i-do 
+     - type: k8s_field
+       field: spec.template.spec.imagePullSecrets.~0.name
+       operation: equal
+       expect: registry-secret
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.image
+       operation: equal
+       expect: some-internal-app:v1337
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.env.~0.name
+       operation: equal
+       expect: SHOULD_NOT_BE_HERE
+     - type: k8s_field
+       field: spec.template.spec.containers.~0.env.~0.value
+       operation: equal
+       expect: this-is-a-password-that-should-be-a-secret

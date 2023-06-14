@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kubernetes Resource Validator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Kubernetes Resource Validator</h1>
+    <form method="post">
+        <textarea name="yaml_text" rows="10" cols="80"></textarea><br><br>
+        <input type="submit" value="Validate">
+    </form>
+    <div id="result"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var section = urlParams.get('section');
+
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/?section=' + section,
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#result').text(response.message);
+                    },
+                    error: function(error) {
+                        $('#result').text(error.responseJSON.message);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

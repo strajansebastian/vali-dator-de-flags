@@ -1,0 +1,167 @@
+# section - annonannot
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  annotations:
+    can-i: yes-you-can
+spec:
+  containers:
+  - name: nginx-web
+    image: nginx:1.23.4
+```
+
+# section - vinsec
+```
+
+# sample - for test validation
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  annotations:
+    can-i: https://t.ly/7nhi
+spec:
+  containers:
+  - name: nginx-web
+    image: nginx:1.23.4
+  restartPolicy: OnFailure
+```
+
+# section - pullmysecretimagination
+```
+# sample - for test validation
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-from-private
+spec:
+  imagePullSecrets:
+  - name: shipyardi-harbork8s-cred
+  containers:
+  - name: pod-from-private
+    image: harbork8s.yardiapp.com/demo/privateimage:notdefined
+```
+
+# section - healthchecksforhealthysleep
+```
+# sample - for test validation
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-sample
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webserver-sample
+  template:
+    metadata:
+      labels:
+        app: webserver-sample
+    spec:
+      containers:
+        - name: webserver-sample
+          image: nginx:1.23.4
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+```
+
+# section - resourceseverywhere
+```
+kubectl api-resources
+```
+
+
+# Question 19 - quotamealimit
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: app
+    image: harbor.yardiapp.com/demo/app:v4
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  - name: log-aggregator
+    image: harbor.yardiapp.com/demo/log-aggregator:v6
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "500m"
+      limits:
+        memory: "32Mi"
+        cpu: "800m"
+```
+
+section - securethecontext
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: red-pod
+spec:
+  hostNetwork: true
+  hostIPC: true
+  hostPID: true
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    runAsNonRoot: false
+    privileged: true
+    readOnlyRootFilesystem: false
+  containers:
+  - name: this-is-bad
+    image: harbor.yardiapp.com/demo/nasty-image:v1337
+    securityContext:
+      runAsUser: 0
+      allowPrivilegeEscalation: true
+```
+
+# section - operationops
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ops-what-i-do
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ops-what-i-do
+  template:
+    metadata:
+      labels:
+        app: ops-what-i-do
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      containers:
+        - name: ops-what-i-do
+          image: some-internal-app:v1337
+          env:
+            - name: SHOULD_NOT_BE_HERE
+              value: this-is-a-password-that-should-be-a-secret
+
+```
+
