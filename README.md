@@ -2,6 +2,12 @@
 Application that can be used to validate kubernetes resources or commands
 It can be extended to validate any type of input in the end.
 
+Naming explanation of repo: a playfull way of saying vali owns you some flags
+vali (short from Valentin)
+dator (to own somebody somthing, you are indebted, like money for example; word in romanian)
+de (of; word in romanian romanian)
+flags (you may get this one)
+
 ### build & run
 ```
 docker build -t vali-dator-de-flags:v0.1 .
