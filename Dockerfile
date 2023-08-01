@@ -12,7 +12,6 @@ RUN apt update && \
 
 RUN mkdir -p /config
 
-COPY config-flags.yaml /config
 COPY --from=kubeconform /kubeconform /app/
 
 COPY src/requirements.txt /app/
@@ -22,6 +21,17 @@ RUN pip3 install --upgrade kubernetes
 
 COPY src /app
 
-ENV KUBECONFIG=/config/.kube-config
+# cache samples for kubeconform in case internet connection is missing 
+ARG KUBECONFORM_USE_CACHE=false \
+    KUBECONFORM_USE_TLS=false
+ENV KUBECONFORM_USE_CACHE=$KUBECONFORM_USE_CACHE \
+    KUBECONFORM_USE_TLS=$KUBECONFORM_USE_TLS
+
+COPY k8s-samples /app/k8s-samples
+RUN bash /app/k8s-samples/init-kubeconform.sh
+# end cache generation
+
+ENV KUBECONFIG=/config/.kube-config \
+    VALIDATOR_PATH_CONFIG_FLAGS=/config/config-flags.yaml
 
 CMD python3 /app/app.py

@@ -5,15 +5,15 @@ It can be extended to validate any type of input in the end.
 Naming explanation of repo: a playfull way of saying vali owns you some flags
 vali (short from Valentin)
 dator (to own somebody somthing, you are indebted, like money for example; word in romanian)
-de (of; word in romanian romanian)
+de (of; word in romanian)
 flags (you may get this one)
 
 ### build & run
 ```
-docker build -t vali-dator-de-flags:v0.1 .
-docker push vali-dator-de-flags:v0.1
+docker build --build-arg KUBECONFORM_USE_CACHE=true --build-arg KUBECONFORM_USE_TLS=false -t vali-dator-de-flags:v0.2 .
+docker push vali-dator-de-flags:v0.2
 
-docker run -it --rm -p 8080:80 vali-dator-de-flags:v0.1
+docker run -it -e PATH_TO_CONFIG:/config/ --rm -p 8080:80 vali-dator-de-flags:v0.2
 ```
 
 ### doc

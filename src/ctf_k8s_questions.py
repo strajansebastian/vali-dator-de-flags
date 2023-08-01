@@ -1,16 +1,19 @@
 import datetime
-import yaml
+import os
 import random
 import re
 import secrets
-import subprocess
 import string
+import subprocess
+import yaml
 
 
 def all_questions(section, data_input):
     result_msg = { 'message': 'NO flag for you here! https://t.ly/Tex82 . You need to have a valid challange link!' }
 
     flags_config_file = '/config/config-flags.yaml'
+    if os.getenv('VALIDATOR_PATH_CONFIG_FLAGS'):
+        flags_config_file = os.getenv('VALIDATOR_PATH_CONFIG_FLAGS')
 
     flags_config = None
     with open(flags_config_file, 'r') as file:
@@ -124,7 +127,12 @@ def write_data_to_file(file_name, data):
 
 
 def valid_kubeconform(section, file_name):
-    command = f'/app/kubeconform -insecure-skip-tls-verify {file_name}'
+    tmp_kc_options = ""
+    if os.getenv('KUBECONFORM_USE_CACHE') == 'true':
+        tmp_kc_options = f"{tmp_kc_options} -cache /app/k8s-samples/ "
+    if os.getenv('KUBECONFORM_USE_TLS') == 'false':
+        tmp_kc_options = f"{tmp_kc_options} -insecure-skip-tls-verify "
+    command = f'/app/kubeconform {tmp_kc_options} {file_name}'
     
     # Run the command and get the return code
     process = subprocess.run(command, shell=True)
