@@ -23,7 +23,7 @@ docker run -it -e PATH_TO_CONFIG:/config/ --rm -p 8080:80 vali-dator-de-flags:v0
 
 # supported operation types and subtypes
 # 1.0 type: k8s_yaml_check_fields - checks if the provided string is a valid k8s yaml file
-# 1.0.1 type: k8s - checks if valid yaml + valid k8s resource using kubeconform 
+# 1.0.1 type: k8s - checks if valid yaml + valid k8s resource using kubeconform
 # 1.0.1.0 type: k8s_field - checks k8s yaml field (separated by . for dictionary, in case list prepend ~)
 # 1.0.1.1 operation: equal - checks if value is equal to what is in expect
 
